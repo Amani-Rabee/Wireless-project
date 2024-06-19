@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecommunications Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="toggle-btn" id="toggleBtn">
+            &#9776; <!-- Hamburger icon -->
+        </div>
+        <div class="logo">
+            <h1>WIRELESS Calculator</h1>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li onclick="showSection('sampler')">Sampler, Quantizer, Source Encoder</li>
+                <li onclick="showSection('ofdm')">OFDM Symbol, Resource Blocks</li>
+                <li onclick="showSection('transmission')">Transmission Power</li>
+                <li onclick="showSection('throughput')">Throughput</li>
+                <li onclick="showSection('cellular')">Cellular System Design</li>
+                <hr>
+                <li onclick="showSection('tutorials')">Tutorials</li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="section" id="sampler">
+            <h2>Calculate Bit Rate and Number of Bits for Sampler, Quantizer, Source Encoder</h2>
+            <label for="samplingRate">Sampler Rate (Hz):</label>
+            <input type="number" id="samplingRate" step="any" required>
+            <label for="quantizationLevels">Quantization Levels:</label>
+            <input type="number" id="quantizationLevels" required>
+            <button onclick="calculateSampler()">Calculate</button>
+            <p id="samplerResult"></p>
+        </div>
+
+        <div class="section" id="ofdm">
+            <h2>Calculate Bit Rate and Number of Bits for OFDM Symbol, Resource Blocks</h2>
+            <label for="subcarriers">Number of Subcarriers:</label>
+            <input type="number" id="subcarriers" required>
+            <label for="symbols">Number of OFDM Symbols:</label>
+            <input type="number" id="symbols" required>
+            <button onclick="calculateOFDM()">Calculate</button>
+            <p id="ofdmResult"></p>
+        </div>
+
+        <div class="section" id="transmission">
+            <h2>Calculate Transmission Power</h2>
+            <!-- Add transmission power calculation inputs and button -->
+        </div>
+
+        <div class="section" id="throughput">
+            <h2>Calculate Throughput</h2>
+            <!-- Add throughput calculation inputs and button -->
+        </div>
+
+        <div class="section" id="cellular">
+            <h2>Design of Cellular System</h2>
+            <!-- Add cellular system design inputs and button -->
+        </div>
+        
+        <div class="section" id="tutorials">
+            <h2>Tutorials</h2>
+            <!-- Add tutorials inputs and button -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
