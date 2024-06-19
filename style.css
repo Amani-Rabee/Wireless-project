@@ -1,36 +1,46 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+/* Reset default browser styles */
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    font-family: 'Verdana', sans-serif; /* Changes the font type */
-    font-size: 14px; /* Changes the font size */
+    box-sizing: border-box;
+}
 
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #00feba, #5b548a);
 }
 
 .container {
+    width: 100%;
     max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    flex-grow: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: margin-left 0.3s;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-left: 260px;
 }
 
 h1, h2 {
     text-align: center;
+    color: #5b548a;
+    background: linear-gradient(135deg, #00feba, #5b548a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .sidebar {
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 250px;
     height: 100vh;
-    background-color: #333; 
+    background-color: #333;
     color: white;
     overflow-x: hidden;
     transition: width 0.3s;
@@ -38,19 +48,18 @@ h1, h2 {
 
 .sidebar .logo {
     padding: 20px;
-    color: #45a049;
     text-align: center;
 }
 
 .sidebar .toggle-btn {
     position: absolute;
     top: 20px;
-    right: -40px; /* Position outside sidebar initially */
+    right: -40px;
     width: 40px;
     height: 40px;
     background-color: #333;
     color: white;
-    text-align: center;
+    text-align: left;
     line-height: 40px;
     cursor: pointer;
     transition: right 0.3s;
@@ -63,13 +72,17 @@ h1, h2 {
 
 .sidebar .nav li {
     padding: 15px;
-    text-align: center;
+    text-align: left;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .sidebar .nav li:hover {
-    background-color: #45a049;
+    background-color: #5b548a;
+}
+.sidebar .nav li.active {
+    background-color: #5b548a;
+    color: white;
 }
 
 hr {
@@ -83,145 +96,171 @@ hr {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    display: none; /* Hide all sections by default */
+    display: none;
 }
 
 .section.active {
-    display: block; /* Show active section */
+    display: block;
 }
 
-/* Smooth scrolling behavior */
 html {
     scroll-behavior: smooth;
 }
 
-/* Adjustments when sidebar is closed */
 .sidebar.closed {
-    width: 60px; /* Minimized width */
+    width: 60px;
 }
 
 .sidebar.closed .toggle-btn {
-    right: -30px; /* Adjust position of toggle button */
+    right: -30px;
 }
 
 .sidebar.closed .nav li {
     text-align: left;
-    padding: 15px 10px; /* Adjust padding */
-    white-space: nowrap; /* Prevent text wrap */
+    padding: 15px 10px;
+    white-space: nowrap;
 }
 
 .sidebar.closed .logo {
-    display: none; /* Hide logo when closed */
-}
-
-.container {
-    margin-left: 260px; /* Adjust to avoid overlap with sidebar */
+    display: none;
 }
 
 .sidebar.closed + .container {
-    margin-left: 70px; /* Adjust container margin when sidebar is closed */
+    margin-left: 70px;
 }
 
+#sampler {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
 
+.input-row {
+    margin-bottom: 15px;
+}
 
+.input-row label {
+    display: inline-block;
+    width: 140px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
 
+.input-row label.radio-label {
+    width: 70px;
+    margin-left: 5px;
+}
 
-/* added from here-------------------------------------------> */
+.input-row input[type="number"],
+.input-row input[type="radio"] {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.output-options {
+    margin-top: 15px;
+}
+
+.output-options div {
+    margin-bottom: 10px;
+}
+
+.output-options label {
+    margin-left: 5px;
+}
+
+.button-row {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-row button {
+    padding: 10px 20px;
+    background-color: #5b548a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-row button:hover {
+    background-color: #3e3860;
+}
 
 .label-input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px; /* Space between input groups */
-    padding-bottom: 10px; /* Padding below each group */
-    border-bottom: 1px solid #ccc; /* Add a subtle line below each group */
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 .label-input-group:last-child {
-    border-bottom: none; /* Remove border from the last group */
+    border-bottom: none;
 }
-
-
-
-
 
 .radio-group {
     display: flex;
     justify-content: flex-start;
     margin-top: 5px;
-    align-items: center; /* Align items vertically */
+    align-items: center;
 }
-hr {
-    margin: 10px 0; /* Adjust spacing if necessary */
-    border: 0; /* Removes the standard border */
-    height: 0; /* Makes the HR invisible */
-    
-}
+
 .radio-group input[type="radio"] {
-    transform: scale(0.8); /* Make the radio buttons smaller */
-    margin-right: 2px; /* Reduce space after the radio button */
+    transform: scale(0.8);
+    margin-right: 2px;
 }
 
 .radio-group label {
-    margin-right: 4px; /* Reduce space between radio button labels */
-    font-size: 10px; /* Optionally adjust the font size if needed */
-    color: #45a049; /* Green text color for labels */
+    width: 30px;
+    margin-right: 4px;
+    font-size: 10px;
+    color: #3e3860;
 }
 
-/* Style inputs with rounded corners and specific border color */
 input[type="number"], input[type="text"], input[type="radio"] {
-    border: 1px solid #45a049; /* Green border color */
-    border-radius: 30px; /* Rounded corners */
-    padding: 8px; /* Padding inside input boxes for better aesthetics */
+    border: 0.7px solid #6751e2;
+    border-radius: 30px;
+    padding: 8px;
 }
 
-/* Style for the button */
 button {
-    background-color: #45a049; /* Green background color */
-    color: white; /* White text color */
-    border: none; /* No border */
-    padding: 10px 20px; /* Padding inside the button */
-    border-radius: 25px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    background-color: #6751e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #367a39; /* Slightly darker green on hover for better interaction */
+    background-color: #544991;
 }
 
-/* Ensure radio buttons align well with other input styles */
 .radio-group input[type="radio"] {
-    transform: scale(1); /* Normal scale for better visibility */
-    margin-right: 5px; /* Standard spacing */
-    vertical-align: middle; /* Aligns radio buttons correctly with the labels */
+    transform: scale(1);
+    margin-right: 5px;
+    vertical-align: middle;
 }
- 
 
 input[type="number"], input[type="text"], .label-input-group, .section {
-    border-color: #45a049;
+    border-color: #3e3860;
 }
 
-.result-container {
-    margin-top: 20px;
+.output-name {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.result-box {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.output-box {
     padding: 10px;
     margin-bottom: 10px;
-    font-size: 16px;
-    color: #333; /* Ensures text inside the result box is visible */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
 }
-
-/* Adding a subtle styling to labels within the result container for better readability */
-.result-container label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-    font-weight: bold;
-}
-
- 
