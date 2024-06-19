@@ -30,14 +30,61 @@
     <div class="container">
         <div class="section" id="sampler">
             <h2>Calculate Bit Rate and Number of Bits for Sampler, Quantizer, Source Encoder</h2>
-            <label for="samplingRate">Sampler Rate (Hz):</label>
-            <input type="number" id="samplingRate" step="any" required>
-            <label for="quantizationLevels">Quantization Levels:</label>
-            <input type="number" id="quantizationLevels" required>
+            <div class="input-row">
+                <label for="bandwidth">Bandwidth:</label>
+                <input type="number" id="bandwidth" step="any" required>
+                <input type="radio" id="hz" name="frequencyUnit" value="Hz" checked>
+                <label class="radio-label" for="hz">Hz</label>
+                <input type="radio" id="khz" name="frequencyUnit" value="kHz">
+                <label class="radio-label" for="khz">kHz</label>
+                <input type="radio" id="mhz" name="frequencyUnit" value="MHz">
+                <label class="radio-label" for="mhz">MHz</label>
+            </div>
+            <div class="input-row">
+                <label for="quantizerBits">Quantizer Bits:</label>
+                <input type="number" id="quantizerBits" required>
+            </div>
+            <div class="input-row">
+                <label for="compressionRate">Source Encoder Rate (0 &lt; Rs &lt; 1):</label>
+                <input type="number" id="compressionRate" step="any" required>
+            </div>
+            <div class="input-row">
+                <label for="channelEncoderRate">Channel Encoder Rate:</label>
+                <input type="number" id="channelEncoderRate" step="any" required>
+            </div>
+        
+            <h3>Select Outputs</h3>
+            <div class="output-options">
+                <div>
+                    <input type="checkbox" id="outputSamplingFrequency" checked>
+                    <label for="outputSamplingFrequency">Sampling Frequency</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="outputQuantizationLevels" checked>
+                    <label for="outputQuantizationLevels">Quantization Levels</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="outputBitRateQuantization" checked>
+                    <label for="outputBitRateQuantization">Bit Rate at Quantizer</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="outputBitRateSourceEncoder" checked>
+                    <label for="outputBitRateSourceEncoder">Bit Rate at Source Encoder</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="outputBitRateChannelEncoder" checked>
+                    <label for="outputBitRateChannelEncoder">Bit Rate at Channel Encoder</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="outputBitRateInterleaver" checked>
+                    <label for="outputBitRateInterleaver">Bit Rate at Interleaver</label>
+                </div>
+            </div>
+        
             <button onclick="calculateSampler()">Calculate</button>
             <p id="samplerResult"></p>
         </div>
-
+        
         <div class="section" id="ofdm">
             <h2>Calculate Bit Rate and Number of Bits for OFDM Symbol, Resource Blocks</h2>
             <label for="subcarriers">Number of Subcarriers:</label>
@@ -62,7 +109,7 @@
             <h2>Design of Cellular System</h2>
             <!-- Add cellular system design inputs and button -->
         </div>
-        
+
         <div class="section" id="tutorials">
             <h2>Tutorials</h2>
             <!-- Add tutorials inputs and button -->
