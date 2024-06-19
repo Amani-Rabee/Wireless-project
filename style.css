@@ -4,6 +4,9 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    font-family: 'Verdana', sans-serif; /* Changes the font type */
+    font-size: 14px; /* Changes the font size */
+
 }
 
 .container {
@@ -119,3 +122,106 @@ html {
 .sidebar.closed + .container {
     margin-left: 70px; /* Adjust container margin when sidebar is closed */
 }
+
+
+
+
+
+/* added from here-------------------------------------------> */
+
+.label-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Space between input groups */
+    padding-bottom: 10px; /* Padding below each group */
+    border-bottom: 1px solid #ccc; /* Add a subtle line below each group */
+}
+
+.label-input-group:last-child {
+    border-bottom: none; /* Remove border from the last group */
+}
+
+
+
+
+
+.radio-group {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+    align-items: center; /* Align items vertically */
+}
+hr {
+    margin: 10px 0; /* Adjust spacing if necessary */
+    border: 0; /* Removes the standard border */
+    height: 0; /* Makes the HR invisible */
+    
+}
+.radio-group input[type="radio"] {
+    transform: scale(0.8); /* Make the radio buttons smaller */
+    margin-right: 2px; /* Reduce space after the radio button */
+}
+
+.radio-group label {
+    margin-right: 4px; /* Reduce space between radio button labels */
+    font-size: 10px; /* Optionally adjust the font size if needed */
+    color: #45a049; /* Green text color for labels */
+}
+
+/* Style inputs with rounded corners and specific border color */
+input[type="number"], input[type="text"], input[type="radio"] {
+    border: 1px solid #45a049; /* Green border color */
+    border-radius: 30px; /* Rounded corners */
+    padding: 8px; /* Padding inside input boxes for better aesthetics */
+}
+
+/* Style for the button */
+button {
+    background-color: #45a049; /* Green background color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding inside the button */
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #367a39; /* Slightly darker green on hover for better interaction */
+}
+
+/* Ensure radio buttons align well with other input styles */
+.radio-group input[type="radio"] {
+    transform: scale(1); /* Normal scale for better visibility */
+    margin-right: 5px; /* Standard spacing */
+    vertical-align: middle; /* Aligns radio buttons correctly with the labels */
+}
+ 
+
+input[type="number"], input[type="text"], .label-input-group, .section {
+    border-color: #45a049;
+}
+
+.result-container {
+    margin-top: 20px;
+}
+
+.result-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333; /* Ensures text inside the result box is visible */
+}
+
+/* Adding a subtle styling to labels within the result container for better readability */
+.result-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+ 
