@@ -86,14 +86,68 @@
         </div>
         
         <div class="section" id="ofdm">
-            <h2>Calculate Bit Rate and Number of Bits for OFDM Symbol, Resource Blocks</h2>
-            <label for="subcarriers">Number of Subcarriers:</label>
-            <input type="number" id="subcarriers" required>
-            <label for="symbols">Number of OFDM Symbols:</label>
-            <input type="number" id="symbols" required>
-            <button onclick="calculateOFDM()">Calculate</button>
-            <p id="ofdmResult"></p>
+            <h2>Calculate OFDM Resource Blocks</h2>
+            <div class="label-input-group">
+                <label for="bandwidth">Resource Block Bandwidth:</label>
+                <input type="number" id="bandwidth2" step="any" required>
+                <div class="radio-group">
+                    <input type="radio" id="bandwidthHz" name="bandwidthUnit" value="Hz" checked>
+                    <label for="bandwidthHz">Hz</label>
+                    <input type="radio" id="bandwidthKHz" name="bandwidthUnit" value="KHz">
+                    <label for="bandwidthKHz">KHz</label>
+                </div>
+            </div>
+            <div class="label-input-group">
+                <label for="subcarrierSpasing">Subcarrier Spasing:</label>
+                <input type="number" id="subcarrierSpasing" step="any" required>
+                <div class="radio-group">
+                    <input type="radio" id="spacingHz" name="spacingUnit" value="Hz" checked>
+                    <label for="spacingHz">Hz</label>
+                    <input type="radio" id="spacingKHz" name="spacingUnit" value="KHz">
+                    <label for="spacingKHz">KHz</label>
+                </div>
+            </div>
+            <div class="label-input-group">
+                <label for="ofdmSymbols">Number of OFDM Symbols per Resource Block:</label>
+                <input type="number" id="ofdmSymbols" required>
+            </div>
+            <div class="label-input-group">
+                <label for="blockDuration">Resource Block Duration:</label>
+                <input type="number" id="blockDuration" step="any" required>
+                <div class="radio-group">
+                    <input type="radio" id="durationS" name="durationUnit" value="s">
+                    <label for="durationS">s</label>
+                    <input type="radio" id="durationMs" name="durationUnit" value="ms" checked>
+                    <label for="durationMs">ms</label>
+                    <input type="radio" id="durationMin" name="durationUnit" value="min">
+                    <label for="durationMin">min</label>
+                    <input type="radio" id="durationH" name="durationUnit" value="h">
+                    <label for="durationH">h</label>
+                </div>
+            </div>
+            <div class="label-input-group">
+                <label for="qam">QAM Used:</label>
+                <input type="text" id="qam" required>
+            </div>
+            <div class="label-input-group">
+                <label for="parallelResourseBlock">Number of assigned parallel Resource Block continuously:</label>
+                <input type="number" id="parallelResourseBlock" required>
+            </div>
+            <div class="button-container">
+                <button id="calculateButton" onclick="calculateOFDM()">Calculate</button>
+            </div>
+            <div class="result-container">
+                <label>Bits per Resource Element:</label>
+        <div id="bitsPerElement" class="result-box"></div>
+        <label>Bits per OFDM Symbol:</label>
+        <div id="bitsPerSymbol" class="result-box"></div>
+        <label>Bits per Resource Block:</label>
+        <div id="bitsPerBlock" class="result-box"></div>
+        <label>Maximum Transmission Rate:</label>
+        <div id="maxTransRate" class="result-box"></div>
+            </div>
         </div>
+
 
         <div class="section" id="transmission">
             <h2>Calculate Transmission Power</h2>

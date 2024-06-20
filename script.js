@@ -1,3 +1,4 @@
+
 // JavaScript function to scroll to sections
 function scrollToSection(sectionId) {
     var section = document.getElementById(sectionId);
@@ -297,3 +298,87 @@ toggleBtn.addEventListener('click', function() {
     sidebar.classList.toggle('closed');
     container.classList.toggle('shifted');
 });
+
+
+function calculateOFDM() {
+    // Clear previous results
+    document.getElementById('bitsPerElement').textContent = '';
+    document.getElementById('bitsPerSymbol').textContent = '';
+    document.getElementById('bitsPerBlock').textContent = '';
+    document.getElementById('maxTransRate').textContent = '';
+
+    var qam = document.getElementById('qam').value;
+    var bandwidth = parseFloat(document.getElementById('bandwidth2').value);
+    var bandwidthUnit = document.querySelector('input[name="bandwidthUnit"]:checked').value;
+    var subcarrierSpacing = parseFloat(document.getElementById('subcarrierSpasing').value);
+    var spacingUnit = document.querySelector('input[name="spacingUnit"]:checked').value;
+    var ofdmSymbols = parseFloat(document.getElementById('ofdmSymbols').value);
+    var parallelResourceBlock = parseFloat(document.getElementById('parallelResourseBlock').value);
+    var blockDuration = parseFloat(document.getElementById('blockDuration').value);
+    var durationUnit = document.querySelector('input[name="durationUnit"]:checked').value;
+
+    var bitsPerElement = Math.log2(parseInt(qam));
+    var adjustedBandwidth = bandwidthUnit === 'KHz' ? bandwidth * 1000 : bandwidth;
+    var adjustedSpacing = spacingUnit === 'KHz' ? subcarrierSpacing * 1000 : subcarrierSpacing;
+    var durationInSeconds = convertDurationToSeconds(blockDuration, durationUnit);
+
+    // Perform all validations upfront
+    var hasErrors = false;
+    if (isNaN(bandwidth) || Math.floor(bandwidth) !== bandwidth) {
+        alert("RB Bandwidth must be a whole number.");
+        hasErrors = true;
+    }
+    if (isNaN(subcarrierSpacing) || Math.floor(subcarrierSpacing) !== subcarrierSpacing) {
+        alert("Subcarrier Spacing must be a whole number.");
+        hasErrors = true;
+    }
+    if (isNaN(ofdmSymbols) || Math.floor(ofdmSymbols) !== ofdmSymbols) {
+        alert("OFDM Symbols must be a whole number.");
+        hasErrors = true;
+    }
+    if (isNaN(blockDuration) || blockDuration <= 0) {
+        alert("Block Duration must be a positive number.");
+        hasErrors = true;
+    }
+    if (!qam || isNaN(bitsPerElement) || bitsPerElement % 1 !== 0) {
+        alert("QAM must be a power of 2 (e.g., 16, 64, 256).");
+        hasErrors = true;
+    }
+    if (isNaN(parallelResourceBlock) || Math.floor(parallelResourceBlock) !== parallelResourceBlock) {
+        alert("Parallel Resource Block must be a whole number.");
+        hasErrors = true;
+    }
+
+    if (hasErrors) return;  // Stop execution if there are errors
+
+    // Calculation can proceed if there are no errors
+    var bitsPerBlock = calculateBitsPerBlock(bitsPerElement, adjustedBandwidth, adjustedSpacing, ofdmSymbols);
+    var maxTransRate = calculateMaxTransmissionRate(parallelResourceBlock, bitsPerBlock, durationInSeconds);
+
+    // Update DOM elements with results
+    document.getElementById('bitsPerElement').textContent = bitsPerElement.toFixed(2) + " bits/symbol";
+    document.getElementById('bitsPerSymbol').textContent = (bitsPerElement * adjustedBandwidth / adjustedSpacing).toFixed(2) + " bits/symbol";
+    document.getElementById('bitsPerBlock').textContent = bitsPerBlock.toFixed(2) + " bits/block";
+    document.getElementById('maxTransRate').textContent = maxTransRate.toFixed(2) + " bits/sec";
+}
+
+function calculateBitsPerBlock(bitsPerElement, bandwidth, spacing, symbols) {
+    return bitsPerElement * (bandwidth / spacing) * symbols;
+}
+
+function calculateMaxTransmissionRate(parallelBlocks, bitsPerBlock, seconds) {
+    return (parallelBlocks * bitsPerBlock) / seconds;
+}
+
+function convertDurationToSeconds(duration, unit) {
+    switch (unit) {
+        case 'ms':
+            return duration / 1000;
+        case 'min':
+            return duration * 60;
+        case 'h':
+            return duration * 3600;
+        default:
+            return duration; // Assumes seconds
+    }
+}
