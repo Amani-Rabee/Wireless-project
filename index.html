@@ -100,10 +100,57 @@
             <!-- Add transmission power calculation inputs and button -->
         </div>
 
-        <div class="section" id="throughput">
+        <div class="section" id="throughput" style="display: block;">
             <h2>Calculate Throughput</h2>
-            <!-- Add throughput calculation inputs and button -->
+            <div class="input-row">
+            <label for="protocol">Select Protocol:</label>
+            <select id="protocol" required>
+                <option value="pureAloha">Pure Aloha</option>
+                <option value="slottedAloha">Slotted Aloha</option>
+                <option value="unslottedNonPersistentCSMA">Unslotted Nonpersistent CSMA</option>
+                <option value="slottedNonPersistentCSMA">Slotted Nonpersistent CSMA</option>
+                <option value="unslottedPersistentCSMA">Unslotted 1-persistent CSMA</option>
+                <option value="slottedPersistentCSMA">Slotted 1-persistent CSMA</option>
+            </select>
         </div>
+            <div class="input-row">
+                <label for="frameSize">Frame Size:</label>
+                <input type="number" id="frameSize" step="any" required>
+                <input type="radio" id="bits" name="frameSizeUnit" value="bits" checked>
+                <label class="radio-label" for="bits">bits</label>
+                <input type="radio" id="kbits" name="frameSizeUnit" value="kbits">
+                <label class="radio-label" for="kbits">Kbits</label>
+            </div>
+            <div class="input-row">
+            <label for="frameRate">Frame Rate:</label>
+            <input type="number" id="frameRate" step="any" required>
+            <input type="radio" id="fps" name="frameRateUnit" value="fps" checked>
+            <label class="radio-label" for="fps">fps</label>
+            <input type="radio" id="kfps" name="frameRateUnit" value="kfps">
+            <label class="radio-label" for="kfps">Kfps</label>
+            </div>   
+            <div class="input-row">
+            <label for="dataTransmissionBW">Data Transmission Bandwidth:</label>
+            <input type="number" id="dataTransmissionBW" step="any" required>
+            <input type="radio" id="bps" name="dataTransmissionBWUnit" value="bps" checked>
+            <label class="radio-label" for="bps">bps</label>
+            <input type="radio" id="kbps" name="dataTransmissionBWUnit" value="kbps">
+            <label class="radio-label" for="kbps">Kbps</label>
+            <input type="radio" id="mbps" name="dataTransmissionBWUnit" value="mbps">
+            <label class="radio-label" for="mbps">Mbps</label>
+        </div>
+        <div class="input-row">
+            <label for="propagationTime">Propagation Time:</label>
+            <input type="number" id="propagationTime" step="any" required>
+            <input type="radio" id="usec" name="propagationTimeUnit" value="usec" checked>
+            <label class="radio-label" for="usec">µsec</label>
+            <input type="radio" id="msec" name="propagationTimeUnit" value="msec">
+            <label class="radio-label" for="msec">msec</label>
+        </div>
+            <button onclick="calculateThroughput()">Calculate</button>
+            <p id="throughputResult"></p>
+        </div>
+
 
         <div class="section" id="cellular">
             <h2>Design of Cellular System</h2>

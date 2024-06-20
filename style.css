@@ -29,6 +29,7 @@ body {
 h1, h2 {
     text-align: center;
     color: #5b548a;
+    margin-bottom: 20px;
     background: linear-gradient(135deg, #00feba, #5b548a);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

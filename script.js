@@ -112,7 +112,7 @@ function calculateSampler() {
         return;
     }
     if (isNaN(quantizerBits) || quantizerBits <= 0) {
-        alert("Please enter a valid number of quantizer bits.");
+        alert("Please enter a valid number of quantizer bits!");
         return;
     }
     if (isNaN(compressionRate) || compressionRate <= 0 || compressionRate >= 1) {
@@ -193,6 +193,96 @@ function calculateOFDM() {
     // Placeholder: Implement actual calculation logic
     document.getElementById('ofdmResult').innerText = "OFDM calculation is not implemented yet.";
 }
+function calculateThroughput() {
+    // Retrieve input values
+    var protocol = document.getElementById('protocol').value;
+
+    // Frame Size
+    var frameSizeElement = document.getElementById('frameSize');
+    var frameSize = parseFloat(frameSizeElement.value);
+    var frameSizeUnit = document.querySelector('input[name="frameSizeUnit"]:checked');
+    if (frameSizeUnit && frameSizeUnit.value === 'kbits') {
+        frameSize *= 1000; // Convert Kbits to bits
+    }
+
+    // Frame Rate
+    var frameRateElement = document.getElementById('frameRate');
+    var frameRate = parseFloat(frameRateElement.value);
+    var frameRateUnit = document.querySelector('input[name="frameRateUnit"]:checked');
+    if (frameRateUnit && frameRateUnit.value === 'kfps') {
+        frameRate *= 1000; // Convert Kfps to fps
+    }
+
+    // Data Transmission Bandwidth
+    var dataTransmissionBWElement = document.getElementById('dataTransmissionBW');
+    var dataTransmissionBW = parseFloat(dataTransmissionBWElement.value);
+    var dataTransmissionBWUnit = document.querySelector('input[name="dataTransmissionBWUnit"]:checked');
+    if (dataTransmissionBWUnit) {
+        if (dataTransmissionBWUnit.value === 'kbps') {
+            dataTransmissionBW *= 1000; // Convert Kbps to bps
+        } else if (dataTransmissionBWUnit.value === 'mbps') {
+            dataTransmissionBW *= 1000000; // Convert Mbps to bps
+        }
+    }
+
+    // Propagation Time
+    var propagationTimeElement = document.getElementById('propagationTime');
+    var propagationTime = parseFloat(propagationTimeElement.value);
+    var propagationTimeUnit = document.querySelector('input[name="propagationTimeUnit"]:checked');
+    if (propagationTimeUnit && propagationTimeUnit.value === 'msec') {
+        propagationTime *= 1000; // Convert msec to µsec
+    }
+
+    // Validate inputs
+    if (isNaN(frameSize) || isNaN(frameRate) || isNaN(dataTransmissionBW) || isNaN(propagationTime)) {
+        alert('Please enter valid numeric values for all input fields.');
+        return;
+    }
+
+    // Calculate Tb, Tframe, G, and alpha based on the converted values
+    var Tb = 1 / dataTransmissionBW;
+    var Tframe = frameSize * Tb;
+    var G = frameRate * Tframe;
+    var alpha = propagationTime / Tframe;
+
+    // Perform calculations based on selected protocol
+    var throughput;
+    switch (protocol) {
+        case 'pureAloha':
+            throughput = G * Math.exp(-2 * G);
+            break;
+        case 'slottedAloha':
+            throughput = G * Math.exp(-G);
+            break;
+        case 'unslottedNonPersistentCSMA':
+            throughput = (G * Math.exp(-2 * alpha * Tframe)) / ((1 + 2 * alpha) + Math.exp(-G));
+            break;
+        case 'slottedNonPersistentCSMA':
+            throughput = (alpha * G * Math.exp(-2 * alpha * Tframe)) / ((1 - Math.exp(-G - alpha * G)));
+            break;
+        case 'unslotted1PersistentCSMA':
+            throughput = ((G * (1 + G + alpha * G)) * Math.exp(-G * (1 + 2 * alpha))) / ((G * (1 + 2 * alpha)) * (1 - Math.exp(-G)) + (1 + alpha * G) * Math.exp(-G * (1 + alpha)));
+            break;
+        case 'slotted1PersistentCSMA':
+            throughput = ((G * (1 + alpha) - Math.exp(-alpha * G)) * Math.exp(-G * (1 + alpha))) / ((1 + alpha) * (1 - Math.exp(-alpha * G)) + alpha * Math.exp(-G * (1 + alpha)));
+            break;
+        default:
+            throughput = 0;
+            break;
+    }
+
+    // Display outputs
+    displayThroughputOutputs(throughput);
+}
+
+function displayThroughputOutputs(throughput) {
+    var resultElement = document.getElementById('throughputResult');
+    resultElement.innerHTML = ''; // Clear previous results
+
+    resultElement.innerHTML += `<div class="output-name">Throughput</div>`;
+    resultElement.innerHTML += `<div class="output-box">${throughput}</div>`;
+}
+
 
 // Toggle sidebar visibility
 var toggleBtn = document.getElementById('toggleBtn');
