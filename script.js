@@ -229,8 +229,11 @@ function calculateThroughput() {
     var propagationTimeElement = document.getElementById('propagationTime');
     var propagationTime = parseFloat(propagationTimeElement.value);
     var propagationTimeUnit = document.querySelector('input[name="propagationTimeUnit"]:checked');
-    if (propagationTimeUnit && propagationTimeUnit.value === 'msec') {
-        propagationTime *= 1000; // Convert msec to µsec
+    if (propagationTimeUnit.value === 'msec') {
+        propagationTime /= 1000; // Convert msec to µsec
+    }
+    if ( propagationTimeUnit.value === 'usec') {
+        propagationTime /= 1000000; // Convert µsec to µsec
     }
 
     // Validate inputs
@@ -245,6 +248,7 @@ function calculateThroughput() {
     var G = frameRate * Tframe;
     var alpha = propagationTime / Tframe;
 
+   
     // Perform calculations based on selected protocol
     var throughput;
     switch (protocol) {
@@ -255,16 +259,16 @@ function calculateThroughput() {
             throughput = G * Math.exp(-G);
             break;
         case 'unslottedNonPersistentCSMA':
-            throughput = (G * Math.exp(-2 * alpha * Tframe)) / ((1 + 2 * alpha) + Math.exp(-G));
+            throughput = (G * Math.exp(-2 * alpha * Tframe)) / (G*(1 + 2 * alpha) + Math.exp(-G*alpha));
             break;
         case 'slottedNonPersistentCSMA':
-            throughput = (alpha * G * Math.exp(-2 * alpha * Tframe)) / ((1 - Math.exp(-G - alpha * G)));
+            throughput = (alpha * G * Math.exp(-2 * alpha * Tframe)) / (1 - Math.exp(-G * alpha) + alpha);
             break;
         case 'unslotted1PersistentCSMA':
-            throughput = ((G * (1 + G + alpha * G)) * Math.exp(-G * (1 + 2 * alpha))) / ((G * (1 + 2 * alpha)) * (1 - Math.exp(-G)) + (1 + alpha * G) * Math.exp(-G * (1 + alpha)));
+            throughput = ((G * (1 + G + alpha * G*(1+G+(alpha*G)/2))) * Math.exp(-G * (1 + 2 * alpha))) / ((G * (1 + 2 * alpha)) * (1 - Math.exp(-G*alpha)) + (1 + alpha * G) * Math.exp(-G * (1 + alpha)));
             break;
         case 'slotted1PersistentCSMA':
-            throughput = ((G * (1 + alpha) - Math.exp(-alpha * G)) * Math.exp(-G * (1 + alpha))) / ((1 + alpha) * (1 - Math.exp(-alpha * G)) + alpha * Math.exp(-G * (1 + alpha)));
+            throughput = (G * (1 + alpha - Math.exp(-alpha * G)) * Math.exp(-G * (1 + alpha))) / ((1 + alpha) * (1 - Math.exp(-alpha * G)) + alpha * Math.exp(-G * (1 + alpha)));
             break;
         default:
             throughput = 0;
@@ -275,12 +279,13 @@ function calculateThroughput() {
     displayThroughputOutputs(throughput);
 }
 
+
 function displayThroughputOutputs(throughput) {
     var resultElement = document.getElementById('throughputResult');
     resultElement.innerHTML = ''; // Clear previous results
 
     resultElement.innerHTML += `<div class="output-name">Throughput</div>`;
-    resultElement.innerHTML += `<div class="output-box">${throughput}</div>`;
+    resultElement.innerHTML += `<div class="output-box">${throughput.toFixed(3)}</div>`;
 }
 
 
