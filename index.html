@@ -149,10 +149,17 @@
         </div>
 
 
-        <div class="section" id="transmission">
-            <h2>Calculate Transmission Power</h2>
-            <!-- Add transmission power calculation inputs and button -->
-        </div>
+      
+
+
+     
+            
+
+            
+
+     
+        
+       
 
         <div class="section" id="throughput" style="display: block;">
             <h2>Calculate Throughput</h2>
@@ -204,6 +211,170 @@
             <button onclick="calculateThroughput()">Calculate</button>
             <p id="throughputResult"></p>
         </div>
+
+
+        <div class="section" id="transmission">
+            <h2>Calculate Transmission Power</h2>
+            <div class="input-row">
+                <label for="pathLoss">Path Loss:</label>
+                <input type="number" id="pathLoss" required>
+                <input type="radio" id="pathLossWatt" name="pathLossUnit" value="Watt">
+                <label class="radio-label" for="pathLossWatt">Watt</label>
+                <input type="radio" id="pathLossDb" name="pathLossUnit" value="dB" checked>
+                <label class="radio-label" for="pathLossDb">dB</label>
+                <input type="radio" id="pathLossDbm" name="pathLossUnit" value="dBm">
+                <label class="radio-label" for="pathLossDbm">dBm</label>
+                 </div>
+            <div class="input-row">
+                <label for="frequency">Frequency:</label>
+                <input type="number" id="frequency" required>
+                <input type="radio" id="frequencyHz" name="frequencyUnit" value="Hz" checked>
+                <label class="radio-label" for="frequencyHz">Hz</label>
+                <input type="radio" id="frequencyKHz" name="frequencyUnit" value="KHz">
+                <label class="radio-label" for="frequencyKHz">KHz</label>
+                <input type="radio" id="frequencyMHz" name="frequencyUnit" value="MHz">
+                <label class="radio-label" for="frequencyMHz">MHz</label>
+                 </div>
+            <div class="input-row">
+                <label for="transmitAntennaGain">Transmit Antenna Gain:</label>
+                <input type="number" id="transmitAntennaGain" required>
+                <input type="radio" id="transmitGainWatt" name="transmitAntennaGainUnit" value="Watt">
+                <label class="radio-label" for="transmitGainWatt">Watt</label>
+                <input type="radio" id="transmitGainDb" name="transmitAntennaGainUnit" value="dB" checked>
+                <label class="radio-label" for="transmitGainDb">dB</label>
+                <input type="radio" id="transmitGainDbm" name="transmitAntennaGainUnit" value="dBm">
+                <label class="radio-label" for="transmitGainDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="receiveAntennaGain">Receive Antenna Gain:</label>
+                <input type="number" id="receiveAntennaGain" required>
+                <input type="radio" id="receiveGainWatt" name="receiveAntennaGainUnit" value="Watt">
+                <label class="radio-label" for="receiveGainWatt">Watt</label>
+                <input type="radio" id="receiveGainDb" name="receiveAntennaGainUnit" value="dB" checked>
+                <label class="radio-label" for="receiveGainDb">dB</label>
+                <input type="radio" id="receiveGainDbm" name="receiveAntennaGainUnit" value="dBm">
+                <label class="radio-label" for="receiveGainDbm">dBm</label>
+            </div>
+      
+              <!-- Add similar input groups for each parameter:complete the code for all the parameters : path loss(with radio(watt, db,dbm)) of ,a frequencyradio((Hz,KHz,MHz)) , transmit antenna gain (with radio(watt, db,dbm)) ,receive antenna gain (with radio(watt, db,dbm)), data rate of bps, antenna feed line loss (with radio(watt, db,dbm)), other losses (with radio(watt, db,dbm)), a fade margin , receiver amplifier gain (with radio(watt, db,dbm)) , noise figure total (with radio(watt, db,dbm)), a noise temperature(with radio(kelvin,celious)) , and link margin(with radio(watt, db,dbm)),maximum bit error rate .and add a radio to choose between these three teqneqes modulated signal (8-PSK, 16-PSK,QPSK/BPSK ), -->
+            <div class = "input-row">
+                <label for="dataRate">Data Rate:</label>
+                <input type="number" id="dataRate" required>
+                <input type="radio" id="dataRateBps" name="dataRateUnit" value="bps" checked>
+                <label class="radio-label" for="dataRateBps">bps</label>
+                <input type="radio" id="dataRateKbps" name="dataRateUnit" value="kbps">
+                <label class="radio-label" for="dataRateKbps">Kbps</label>
+                <input type="radio" id="dataRateMbps" name="dataRateUnit" value="mbps">
+                <label class="radio-label" for="dataRateMbps">Mbps</label>
+            </div>
+            <div class="input-row">
+                <label for="antennaFeedLineLoss">Antenna Feed Line Loss:</label>
+                <input type="number" id="antennaFeedLineLoss" required>
+                <input type="radio" id="antennaFeedLossWatt" name="antennaFeedLineLossUnit" value="Watt">
+                <label class="radio-label" for="antennaFeedLossWatt">Watt</label>
+                <input type="radio" id="antennaFeedLossDb" name="antennaFeedLineLossUnit" value="dB" checked>
+                <label class="radio-label" for="antennaFeedLossDb">dB</label>
+                <input type="radio" id="antennaFeedLossDbm" name="antennaFeedLineLossUnit" value="dBm">
+                <label class="radio-label" for="antennaFeedLossDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="otherLosses">Other Losses:</label>
+                <input type="number" id="otherLosses" required>
+                <input type="radio" id="otherLossesWatt" name="otherLossesUnit" value="Watt">
+                <label class="radio-label" for="otherLossesWatt">Watt</label>
+                <input type="radio" id="otherLossesDb" name="otherLossesUnit" value="dB" checked>
+                <label class="radio-label" for="otherLossesDb">dB</label>
+                <input type="radio" id="otherLossesDbm" name="otherLossesUnit" value="dBm">
+                <label class="radio-label" for="otherLossesDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="fadeMargin">Fade Margin:</label>
+                <input type="number" id="fadeMargin" required>
+                <input type="radio" id="fadeMarginWatt" name="fadeMarginUnit" value="Watt">
+                <label class="radio-label" for="fadeMarginWatt">Watt</label>
+                <input type="radio" id="fadeMarginDb" name="fadeMarginUnit" value="dB" checked>
+                <label class="radio-label" for="fadeMarginDb">dB</label>
+                <input type="radio" id="fadeMarginDbm" name="fadeMarginUnit" value="dBm">
+                <label class="radio-label" for="fadeMarginDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="transmitAmplifierGain">Transmit Amplifier Gain:</label>
+                <input type="number" id="transmitAmplifierGain" required>
+                <input type="radio" id="transmitAmplifierGainWatt" name="transmitAmplifierGainUnit" value="Watt">
+                <label class="radio-label" for="transmitAmplifierGainWatt">Watt</label>
+                <input type="radio" id="transmitAmplifierGainDb" name="transmitAmplifierGainUnit" value="dB" checked>
+                <label class="radio-label" for="transmitAmplifierGainDb">dB</label>
+                <input type="radio" id="transmitAmplifierGainDbm" name="transmitAmplifierGainUnit" value="dBm">
+                <label class="radio-label" for="transmitAmplifierGainDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="receiverAmplifierGain">Receiver Amplifier Gain:</label>
+                <input type="number" id="receiverAmplifierGain" required>
+                <input type="radio" id="receiverAmplifierGainWatt" name="receiverAmplifierGainUnit" value="Watt">
+                <label class="radio-label" for="receiverAmplifierGainWatt">Watt</label>
+                <input type="radio" id="receiverAmplifierGainDb" name="receiverAmplifierGainUnit" value="dB" checked>
+                <label class="radio-label" for="receiverAmplifierGainDb">dB</label>
+                <input type="radio" id="receiverAmplifierGainDbm" name="receiverAmplifierGainUnit" value="dBm">
+                <label class="radio-label" for="receiverAmplifierGainDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="noiseFigureTotal">Noise Figure Total:</label>
+                <input type="number" id="noiseFigureTotal" required>
+                <input type="radio" id="noiseFigureTotalWatt" name="noiseFigureTotalUnit" value="Watt">
+                <label class="radio-label" for="noiseFigureTotalWatt">Watt</label>
+                <input type="radio" id="noiseFigureTotalDb" name="noiseFigureTotalUnit" value="dB" checked>
+                <label class="radio-label" for="noiseFigureTotalDb">dB</label>
+                <input type="radio" id="noiseFigureTotalDbm" name="noiseFigureTotalUnit" value="dBm">
+                <label class="radio-label" for="noiseFigureTotalDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="noiseTemperature">Noise Temperature:</label>
+                <input type="number" id="noiseTemperature" required>
+                <input type="radio" id="noiseTemperatureKelvin" name="noiseTemperatureUnit" value="Kelvin" checked>
+                <label class="radio-label" for="noiseTemperatureKelvin">Kelvin</label>
+                <input type="radio" id="noiseTemperatureCelcius" name="noiseTemperatureUnit" value="Celcius">
+                <label class="radio-label" for="noiseTemperatureCelcius">Celcius</label>
+                </div>
+            <div class="input-row">
+                <label for="linkMargin">Link Margin:</label>
+                <input type="number" id="linkMargin" required>
+                <input type="radio" id="linkMarginWatt" name="linkMarginUnit" value="Watt">
+                <label class="radio-label" for="linkMarginWatt">Watt</label>
+                <input type="radio" id="linkMarginDb" name="linkMarginUnit" value="dB" checked>
+                <label class="radio-label" for="linkMarginDb">dB</label>
+                <input type="radio" id="linkMarginDbm" name="linkMarginUnit" value="dBm">
+                 <label class="radio-label" for="linkMarginDbm">dBm</label>
+                </div>
+            <div class="input-row">
+                <label for="maxBitErrorRate">Maximum Bit Error Rate:</label>
+                <input type="text" id="maxBitErrorRate" required>
+
+                </div>
+            
+            <div class="input-row">
+                <label for="modulation">Modulation Technique:</label>
+                <select id="modulation" required>
+                    <option value="8-PSK">8-PSK</option>
+                    <option value="16-PSK">16-PSK</option>
+                    <option value="QPSK/BPSK">QPSK/BPSK</option>
+                </select>
+            </div>
+            <button onclick="calculateTransmissionPower()">Calculate</button>
+            <p id="transmissionResult"></p>
+
+              <!-- Result display area for Eb/N0 -->
+              <div class="result-container">
+                <label>Eb/N0:</label>
+                <div id="EbN0" class="result-box"></div>
+                <label>Received Power:</label>
+                <div id="receivedPower" class="result-box"></div>
+                <label>Transmit Power:</label>
+                <div id="transmitPower" class="result-box"></div>
+            </div>
+        </div>
+
+        
+        
 
 
         <div class="section" id="cellular">
