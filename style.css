@@ -149,8 +149,8 @@ html {
 }
 
 .input-row label.radio-label {
-    width: 70px;
-    margin-left: 5px;
+    width: 55px;
+    margin-left: 4px;
 }
 
 .input-row input[type="number"],

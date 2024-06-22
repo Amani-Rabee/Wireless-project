@@ -87,7 +87,7 @@
         
         <div class="section" id="ofdm">
             <h2>Calculate OFDM Resource Blocks</h2>
-            <div class="label-input-group">
+            <div class="input-row">
                 <label for="bandwidth">Resource Block Bandwidth:</label>
                 <input type="number" id="bandwidth2" step="any" required>
                 <div class="radio-group">
@@ -97,7 +97,7 @@
                     <label for="bandwidthKHz">KHz</label>
                 </div>
             </div>
-            <div class="label-input-group">
+            <div class="input-row">
                 <label for="subcarrierSpasing">Subcarrier Spasing:</label>
                 <input type="number" id="subcarrierSpasing" step="any" required>
                 <div class="radio-group">
@@ -107,11 +107,11 @@
                     <label for="spacingKHz">KHz</label>
                 </div>
             </div>
-            <div class="label-input-group">
+            <div class="input-row">
                 <label for="ofdmSymbols">Number of OFDM Symbols per Resource Block:</label>
                 <input type="number" id="ofdmSymbols" required>
             </div>
-            <div class="label-input-group">
+            <div class="input-row">
                 <label for="blockDuration">Resource Block Duration:</label>
                 <input type="number" id="blockDuration" step="any" required>
                 <div class="radio-group">
@@ -125,11 +125,11 @@
                     <label for="durationH">h</label>
                 </div>
             </div>
-            <div class="label-input-group">
+            <div class="input-row">
                 <label for="qam">QAM Used:</label>
                 <input type="text" id="qam" required>
             </div>
-            <div class="label-input-group">
+            <div class="input-row">
                 <label for="parallelResourseBlock">Number of assigned parallel Resource Block continuously:</label>
                 <input type="number" id="parallelResourseBlock" required>
             </div>
@@ -147,19 +147,6 @@
         <div id="maxTransRate" class="result-box"></div>
             </div>
         </div>
-
-
-      
-
-
-     
-            
-
-            
-
-     
-        
-       
 
         <div class="section" id="throughput" style="display: block;">
             <h2>Calculate Throughput</h2>
@@ -211,7 +198,6 @@
             <button onclick="calculateThroughput()">Calculate</button>
             <p id="throughputResult"></p>
         </div>
-
 
         <div class="section" id="transmission">
             <h2>Calculate Transmission Power</h2>
@@ -373,13 +359,128 @@
             </div>
         </div>
 
-        
-        
-
-
         <div class="section" id="cellular">
             <h2>Design of Cellular System</h2>
-            <!-- Add cellular system design inputs and button -->
+            
+            <div class="input-row">
+                <label for="total-area">Total area:</label>
+                <input type="number" id="total-area" step="any" required>
+                <input type="radio" id="total-area-m2" name="totalAreaUnit" value="m2" checked>
+                <label class="radio-label" for="total-area-m2">m2</label>
+                <input type="radio" id="total-area-km2" name="totalAreaUnit" value="km2">
+                <label class="radio-label" for="total-area-km2">km2</label>
+                <input type="radio" id="total-area-dB" name="totalAreaUnit" value="dB" >
+                <label class="radio-label" for="total-area-dB">dB</label>
+                <input type="radio" id="total-area-dBm" name="totalAreaUnit" value="dBm">
+                <label class="radio-label" for="total-area-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="users-no">Number of users:</label>
+                <input type="number" id="users-no" step="any" required>
+                <input type="radio" id="users-no-dB" name="usersNoUnit" value="dB">
+                <label class="radio-label" for="users-no-dB">dB</label>
+                <input type="radio" id="users-no-dBm" name="usersNoUnit" value="dBm">
+                <label class="radio-label" for="users-no-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="avg-calls">Average call number per day:</label>
+                <input type="number" id="avg-calls" step="any" required>
+                <input type="radio" id="avg-calls-dB" name="avgCallsUnit" value="dB" >
+                <label class="radio-label" for="avg-calls-dB">dB</label>
+                <input type="radio" id="avg-calls-dBm" name="avgCallsUnit" value="dBm">
+                <label class="radio-label" for="avg-calls-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="avg-call-duration">Average call duration:</label>
+                <input type="number" id="avg-call-duration" step="any" required>
+                <input type="radio" id="avg-call-duration-sec" name="avgCallDurationUnit" value="sec" checked>
+                <label class="radio-label" for="avg-call-duration-sec">sec</label>
+                <input type="radio" id="avg-call-duration-min" name="avgCallDurationUnit" value="min">
+                <label class="radio-label" for="avg-call-duration-min">min</label>
+                <input type="radio" id="avg-call-duration-dB" name="avgCallDurationUnit" value="dB" >
+                <label class="radio-label" for="avg-call-duration-dB">dB</label>
+                <input type="radio" id="avg-call-duration-dBm" name="avgCallDurationUnit" value="dBm">
+                <label class="radio-label" for="avg-call-duration-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="gos">GOS:</label>
+                <input type="number" id="gos" step="any" required>
+                <input type="radio" id="gos-dB" name="gosUnit" value="dB" checked>
+                <label class="radio-label" for="gos-dB">dB</label>
+                <input type="radio" id="gos-dBm" name="gosUnit" value="dBm">
+                <label class="radio-label" for="gos-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="sir">Minimum SIR:</label>
+                <input type="number" id="sir" step="any" required>
+                <input type="radio" id="sir-dB" name="sirUnit" value="dB" checked>
+                <label class="radio-label" for="sir-dB">dB</label>
+                <input type="radio" id="sir-dBm" name="sirUnit" value="dBm">
+                <label class="radio-label" for="sir-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="ref-power">Reference Power:</label>
+                <input type="number" id="ref-power" step="any" required>
+                <input type="radio" id="ref-power-dB" name="refPowerUnit" value="dB" checked>
+                <label class="radio-label" for="ref-power-dB">dB</label>
+                <input type="radio" id="ref-power-dBm" name="refPowerUnit" value="dBm">
+                <label class="radio-label" for="ref-power-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="ref-distence">Reference Distance:</label>
+                <input type="number" id="ref-distence" step="any" required>
+                <input type="radio" id="m" name="refDistUnit" value="m" checked>
+                <label class="radio-label" for="m">m</label>
+                <input type="radio" id="km" name="refDistUnit" value="km">
+                <label class="radio-label" for="km">km</label>
+                <input type="radio" id="ref-distence-dB" name="refDistanceUnit" value="dB" >
+                <label class="radio-label" for="ref-distence-dB">dB</label>
+                <input type="radio" id="ref-distence-dBm" name="refDistanceUnit" value="dBm">
+                <label class="radio-label" for="ref-distence-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="path-loss">Path Loss exponent:</label>
+                <input type="number" id="path-loss" step="any" required>
+                <input type="radio" id="path-loss-dB" name="pathLossUnit" value="dB" checked>
+                <label class="radio-label" for="path-loss-dB">dB</label>
+                <input type="radio" id="path-loss-dBm" name="pathLossUnit" value="dBm">
+                <label class="radio-label" for="path-loss-dBm">dBm</label>
+            </div>
+            
+            <div class="input-row">
+                <label for="receiver-sens">Receiver Sensitivity:</label>
+                <input type="number" id="receiver-sens" step="any" required>
+                <input type="radio" id="receiver-sens-dB" name="receiverSensitivityUnit" value="dB" checked>
+                <label class="radio-label" for="receiver-sens-dB">dB</label>
+                <input type="radio" id="receiver-sens-dBm" name="receiverSensitivityUnit" value="dBm">
+                <label class="radio-label" for="receiver-sens-dBm">dBm</label>
+            </div>
+            <div class="input-row">
+                <label for="cochannels">co-channel interfering cells:</label>
+                <input type="number" id="cochannels" step="any" required>
+                <input type="radio" id="cochannels-dB" name="cochannelsUnit" value="dB" checked>
+                <label class="radio-label" for="cochannels-dB">dB</label>
+                <input type="radio" id="cochannels-dBm" name="cochannelsUnit" value="dBm">
+                <label class="radio-label" for="cochannels-dBm">dBm</label>
+            </div>
+            <div class="input-row">
+                <label for="time-slot">Time Slots:</label>
+                <input type="number" id="time-slot" step="any" required>
+                <input type="radio" id="time-slot-dB" name="time-slotUnit" value="dB" checked>
+                <label class="radio-label" for="time-slot-dB">dB</label>
+                <input type="radio" id="time-slot-dBm" name="time-slotUnit" value="dBm">
+                <label class="radio-label" for="time-slot-dBm">dBm</label>
+            </div>
+            <button onclick="calculateCellular()">Calculate</button>
+            <p id="CellularResult"></p>
         </div>
 
         <div class="section" id="tutorials">
