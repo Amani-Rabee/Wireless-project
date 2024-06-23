@@ -520,4 +520,134 @@ function convertToDb(value, unit) {
     }
 }
 
+
+
+function calculateCellular() {
+    // Gather input values and their units
+    const refDistance = parseFloat(document.getElementById('ref-distance').value);
+    const refDistanceUnit = document.querySelector('input[name="refDistUnit"]:checked').value;
+    const receiverSensitivity = parseFloat(document.getElementById('receiver-sens').value);
+    const receiverSensitivityUnit = document.querySelector('input[name="receiverSensitivityUnit"]:checked').value;
+    const refPower = parseFloat(document.getElementById('ref-power').value);
+    const refPowerUnit = document.querySelector('input[name="refPowerUnit"]:checked').value;
+ // Gather input values and their units
+ const users = parseFloat(document.getElementById('users-no').value);
+ const usersUnit = document.querySelector('input[name="usersNoUnit"]:checked').value;
+ const avgCalls = parseFloat(document.getElementById('avg-calls').value);
+ const avgCallsUnit = document.querySelector('input[name="avgCallsUnit"]:checked').value;
+ const avgCallDuration = parseFloat(document.getElementById('avg-call-duration').value);
+ const avgCallDurationUnit = document.querySelector('input[name="avgCallDurationUnit"]:checked').value;
+  // Retrieve and convert input values
+  const sir = parseFloat(document.getElementById('sir').value);
+  const sirUnit = document.querySelector('input[name="sirUnit"]:checked').value;
+  const coChannels = parseFloat(document.getElementById('cochannels').value);
+
+
+    // Total area input and unit
+    const totalArea = parseFloat(document.getElementById('total-area').value);
+    const totalAreaUnit = document.querySelector('input[name="totalAreaUnit"]:checked').value;
+
+    // Convert all inputs to standard units (meters and watts)
+    const refDistanceInMeters = convertDistance(refDistance, refDistanceUnit);
+    const receiverSensitivityInWatts = convertPower(receiverSensitivity, receiverSensitivityUnit, 'Watt');
+    const refPowerInWatts = convertPower(refPower, refPowerUnit, 'Watt');
+    const totalAreaInMeters = convertArea(totalArea, totalAreaUnit);
+
+    // Calculate maximum distance using the provided formula
+    const maxDistance = refDistanceInMeters / Math.cbrt(receiverSensitivityInWatts / refPowerInWatts);
+
+    // Calculate maximum cell size using the provided hexagonal area formula
+    const maxCellSize = (3 * Math.sqrt(3) * Math.pow(maxDistance, 2)) / 2;
+
+    // Calculate the number of cells in the service area
+    const numberOfCells = totalAreaInMeters / maxCellSize;
     
+ // Convert users from thousands if necessary
+    const totalUsers = usersUnit === 'Kusers' ? users * 1000 : users;
+
+    // Convert average calls to calls per second
+    let avgCallsPerSecond;
+    switch (avgCallsUnit) {
+        case 'calls/day':
+            avgCallsPerSecond = avgCalls / (24 * 3600); // convert from calls/day to calls/sec
+            break;
+        case 'calls/hour':
+            avgCallsPerSecond = avgCalls / 3600; // convert from calls/hour to calls/sec
+            break;
+        case 'calls/min':
+            avgCallsPerSecond = avgCalls / 60; // convert from calls/min to calls/sec
+            break;
+        default:
+            avgCallsPerSecond = avgCalls; // already in calls/sec
+    }
+
+    // Convert average call duration to seconds per call if necessary
+    const callDurationInSeconds = avgCallDurationUnit === 'min/call' ? avgCallDuration * 60 : avgCallDuration;
+
+    // Calculate traffic load in Erlangs
+    const trafficLoad = totalUsers * avgCallsPerSecond * callDurationInSeconds;
+
+     // Calculate traffic load per cell
+     const trafficLoadPerCell = trafficLoad / numberOfCells;
+
+     // Convert SIR to Watts if necessary
+    const sirInWatts = convertPower(sir, sirUnit, 'Watt');
+
+    // Calculate the number of cells in each cluster
+    const cellsInEachCluster = Math.pow((sirInWatts * coChannels), 2/3) / 3;
+
+    
+    // Define the set of specific values
+    const specificValues = [0, 1, 3, 4, 7, 9, 12, 13, 16, 19, 21, 25, 27, 28, 31, 36, 37, 39, 43, 48, 49, 52, 57, 61, 63, 64, 67, 73, 75, 76, 79, 81];
+
+    // Find the nearest number greater than or equal to the calculated value
+    const nearestGreater = specificValues.find(value => value >= cellsInEachCluster);
+
+
+
+    // Display the results
+    document.getElementById('maxDistance').textContent = maxDistance.toFixed(2) + ' meters';
+    document.getElementById('maxCellSize').textContent = maxCellSize.toFixed(2) + ' square meters';
+    document.getElementById('noOfCells').textContent = Math.ceil(numberOfCells); 
+    document.getElementById('trafficLoad').textContent = trafficLoad.toFixed(2) + ' Erlangs';
+    document.getElementById('trafficLoadCell').textContent = trafficLoadPerCell.toFixed(2) + ' Erlangs';
+    document.getElementById('noOfCellsCluster').textContent = cellsInEachCluster.toFixed(2);
+    document.getElementById('noOfCellsCluster').textContent = nearestGreater !== undefined ? nearestGreater+ 'cell/cluster': "No suitable value";
+}
+
+// Function to convert distance to meters
+function convertDistance(value, unit) {
+    switch (unit) {
+        case 'km':
+            return value * 1000; // Convert kilometers to meters
+        case 'm':
+        default:
+            return value; // Already in meters or no conversion needed
+    }
+}
+
+// Function to convert area to square meters
+function convertArea(value, unit) {
+    if (unit === 'km2') {
+        return value * 1000000; // Convert square kilometers to square meters
+    } else {
+        return value; // Assume the value is already in square meters if not specified
+    }
+}
+
+// Function to convert power to Watts
+function convertPower(value, unit, toUnit) {
+    if (unit === toUnit) return value; // No conversion needed
+
+    switch (unit) {
+        case 'dBm':
+            return Math.pow(10, (value - 30) / 10); // Convert dBm to Watts
+        case 'dB':
+            return Math.pow(10, value / 10); // Convert dB to Watts assuming the reference is 1W
+        case 'uWatt':
+            return value * 1e-6; // Convert microWatts to Watts
+        case 'Watt':
+        default:
+            return value; // Already in Watts or no conversion needed
+    }
+}
