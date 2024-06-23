@@ -338,7 +338,7 @@ toggleBtn.addEventListener('click', function() {
 
 // Arrays to store the Eb/N0 values corresponding to BER values for each modulation technique
 const modulationData = {
-    "BPSK/QPSK": [
+    "QPSK/BPSK": [
         { BER: 1e-1, EbN0: 1 },
         { BER: 1e-2, EbN0: 5 },
         { BER: 1e-3, EbN0: 7 },
